@@ -6,7 +6,7 @@ It is designed for testing and understanding various Git commands, workflows, an
 ## Table of Contents
 - [Purpose](#purpose)
 - [Usage](#usage)
-- [Best Practices](#best practices)
+- [Best Practices](#best-practices)
 - [Contributing](#contributing)
 
 ## Purpose
