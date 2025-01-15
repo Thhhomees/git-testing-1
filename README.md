@@ -27,31 +27,31 @@ Feel free to use this repository for any of the following:
 
 1. Pull Request Testing
 Create branches, make changes, and submit pull requests to:
-- Test pull request workflows.
-- Simulate review processes.
-- Practice resolving merge conflicts.
+  - Test pull request workflows.
+  - Simulate review processes.
+  - Practice resolving merge conflicts.
 
 2. Branching and Merging
 Experiment with creating, merging, and deleting branches to:
-- Understand branching strategies.
-- Practice fast-forward vs. non-fast-forward merges.
-- Simulate real-world team collaboration.
+  - Understand branching strategies.
+  - Practice fast-forward vs. non-fast-forward merges.
+  - Simulate real-world team collaboration.
 
 3. Rebasing and Cherry-Picking
 Use this repository to:
-- Rebase branches onto others to test and learn about history rewriting.
-- Cherry-pick commits to extract specific changes from one branch to another.
+  - Rebase branches onto others to test and learn about history rewriting.
+  - Cherry-pick commits to extract specific changes from one branch to another.
 
 4. Conflict Resolution
 Introduce intentional conflicts to:
-- Practice resolving merge and rebase conflicts.
-- Gain confidence in handling tricky situations in Git.
+  - Practice resolving merge and rebase conflicts.
+  - Gain confidence in handling tricky situations in Git.
 
 5. Custom Scenarios
 Test any other Git-related workflows or operations, including:
-- Amendments to commits.
-- Stash usage and recovery.
-- Undoing changes (e.g., git reset, git revert).
+  - Amendments to commits.
+  - Stash usage and recovery.
+  - Undoing changes (e.g., git reset, git revert).
 
 
 ## Best Practices
