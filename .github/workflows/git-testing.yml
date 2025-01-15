@@ -1,4 +1,4 @@
-name: git-workflow-testing
+name: git-testing
 
 # Controls when the workflow will run
 on:
