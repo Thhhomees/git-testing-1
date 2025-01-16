@@ -10,6 +10,15 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs: 
+      parameter1: 
+        description: 'parameter1'
+        required: true
+        type: string
+      parameter2: 
+        description: 'parameter2'
+        required: true
+        type: boolean
 
 jobs:
   linux-test:
@@ -72,6 +81,10 @@ jobs:
           echo "RUNNER_TEMP: $RUNNER_TEMP"
           echo "RUNNER_TOOL_CACHE: $RUNNER_TOOL_CACHE"
 
+      - name: Print Parameters
+        run: |
+          echo "Parameter 1: ${{ github.event.inputs.parameter1 }}"
+          echo "Parameter 2: ${{ github.event.inputs.parameter2 }}"
 
   windows-test:
     # The type of runner that the job will run on
