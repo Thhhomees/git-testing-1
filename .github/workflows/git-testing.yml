@@ -87,7 +87,8 @@ jobs:
           echo "Parameter 2: ${{ github.event.inputs.parameter2 }}"
 
   windows-test:
-    # The type of runner that the job will run on
+    needs: linux-test
+    # condition: 
     runs-on: windows-latest
 
     steps:
@@ -99,7 +100,6 @@ jobs:
         run: |
           cd $env:GITHUB_WORKSPACE    # = cd ${{ github.workspace }}
           ls
-
 
       - name: Environment Variables
         shell: pwsh
@@ -148,3 +148,8 @@ jobs:
           Write-Host "RUNNER_OS: $env:RUNNER_OS"
           Write-Host "RUNNER_TEMP: $env:RUNNER_TEMP"
           Write-Host "RUNNER_TOOL_CACHE: $env:RUNNER_TOOL_CACHE"
+
+      - name: Secret Test
+        shell: pwsh
+        run: |
+          Write-Host ${{ secrets.GH_Secret }}
