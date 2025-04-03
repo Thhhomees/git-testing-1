@@ -6,9 +6,9 @@ It is designed for testing and understanding various git commands, workflows, an
 ---
 
 ## 📖 Table of Contents 📖
-- [Purpose](#purpose)
-- [Best Practices](#best-practices)
-- [Usage](#usage)
+- [Purpose](#-purpose-)
+- [Best Practices](#-best-practices-)
+- [Usage](#-usage-)
 
 ---
 
