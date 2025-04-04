@@ -1,6 +1,6 @@
-# ⚙️ git-testing ⚙️
+# ⚙️ git-testing-1 ⚙️
 
-**git-testing** is a repository intended to serve as a sandbox for experimenting with Git workflows and operations.
+**git-testing-1** is a repository intended to serve as a sandbox for experimenting with Git workflows and operations.
 It is designed for testing and understanding various git commands, workflows, and features like pull requests, cherry-picking, rebasing, merging, and more.
 
 ---
