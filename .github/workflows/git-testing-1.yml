@@ -26,8 +26,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout task-automation-toolkit
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: git-testing Location
         run: |
@@ -92,8 +91,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout task-automation-toolkit
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: git-testing Location
         shell: pwsh
@@ -152,4 +150,4 @@ jobs:
       - name: Secret Test
         shell: pwsh
         run: |
-          Write-Host ${{ secrets.GH_Secret }}
+          Write-Host "Variable " + ${{ secrets.GH1_VARIABLE }}
