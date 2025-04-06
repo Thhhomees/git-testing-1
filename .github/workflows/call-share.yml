@@ -17,6 +17,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "Shared Secret: ${{ needs.get-vars.outputs.secret_value }}"
           echo "Shared Variable: ${{ needs.get-vars.outputs.variable_value }}"
 
