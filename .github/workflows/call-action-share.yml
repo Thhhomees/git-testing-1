@@ -9,14 +9,14 @@ on:
 
 jobs:
   get-vars:
+    uses: Thhhomees/git-testing-2/.github/workflows/share-vars.yml@main
+    secrets: inherit
+
+  print-vars:
+    needs: get-vars
     runs-on: ubuntu-latest
     steps:
-      - name: Call shared action from Repo B
-        id: shared
-        uses: Thhhomees/git-testing-2/.github/actions/share-vars@main
-        with: {}
+      - run: |
+          echo "Shared Secret: ${{ needs.get-vars.outputs.secret_value }}"
+          echo "Shared Variable: ${{ needs.get-vars.outputs.variable_value }}"
 
-      - name: Use outputs
-        run: |
-          echo "Shared Secret: ${{ steps.shared.outputs.secret_value }}"
-          echo "Shared Variable: ${{ steps.shared.outputs.variable_value }}"
