@@ -1,4 +1,4 @@
-name: call-action-share
+name: call-share
 
 on:
   push:
