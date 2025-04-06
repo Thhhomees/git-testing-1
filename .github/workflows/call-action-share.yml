@@ -1,0 +1,22 @@
+name: call-action-share
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+
+jobs:
+  get-vars:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call shared action from Repo B
+        id: shared
+        uses: Thhhomees/git-testing-2/.github/actions/share-vars@main
+        with: {}
+
+      - name: Use outputs
+        run: |
+          echo "Shared Secret: ${{ steps.shared.outputs.secret_value }}"
+          echo "Shared Variable: ${{ steps.shared.outputs.variable_value }}"

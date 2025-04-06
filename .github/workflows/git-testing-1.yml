@@ -150,5 +150,5 @@ jobs:
       - name: Secrets & Variables
         shell: pwsh
         run: |
-          Write-Host "Secret " + ${{ secrets.GH1_SECRET }}
-          Write-Host "Variable " + ${{ vars.GH1_VARIABLE }}
+          Write-Host "Secret: ${{ secrets.GH1_SECRET }}"
+          Write-Host "Variable: ${{ vars.GH1_VARIABLE }}"
