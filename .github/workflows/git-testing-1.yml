@@ -28,7 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: git-testing Location
+      - name: git-testing-1 Location
         run: |
           cd $GITHUB_WORKSPACE
           ls
@@ -93,7 +93,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: git-testing Location
+      - name: git-testing-1 Location
         shell: pwsh
         run: |
           cd $env:GITHUB_WORKSPACE    # = cd ${{ github.workspace }}
@@ -147,7 +147,8 @@ jobs:
           Write-Host "RUNNER_TEMP: $env:RUNNER_TEMP"
           Write-Host "RUNNER_TOOL_CACHE: $env:RUNNER_TOOL_CACHE"
 
-      - name: Secret Test
+      - name: Secrets & Variables
         shell: pwsh
         run: |
-          Write-Host "Variable " + ${{ secrets.GH1_VARIABLE }}
+          Write-Host "Secret " + ${{ secrets.GH1_SECRET }}
+          Write-Host "Variable " + ${{ variables.GH1_VARIABLE }}
