@@ -151,4 +151,4 @@ jobs:
         shell: pwsh
         run: |
           Write-Host "Secret " + ${{ secrets.GH1_SECRET }}
-          Write-Host "Variable " + ${{ variables.GH1_VARIABLE }}
+          Write-Host "Variable " + ${{ vars.GH1_VARIABLE }}
