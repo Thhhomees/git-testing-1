@@ -1,6 +1,6 @@
 name: git-testing-1
 
-run-name: ${{ github.run_id }}.${{ github.run_attempt}}–${{ github.run_started_at }}
+run-name: ${{ github.run_id }}.${{ github.run_attempt}}–${{ github.sha }}-${{ github.ref_name }}
 
 # Controls when the workflow will run
 on:
