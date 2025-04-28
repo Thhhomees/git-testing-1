@@ -26,6 +26,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Generate Build ID
+        id: build_id
+        run: |
+          BUILD_ID=$(date +'%Y%m%d-%H%M%S')-${{ github.run_id }}
+
       - uses: actions/checkout@v4
 
       - name: git-testing-1 Location
