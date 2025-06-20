@@ -95,12 +95,9 @@ jobs:
       - name: Get environment name
         shell: bash
         run: |
-          # Get current job ID
-          JOB_ID=${{ job.job_id }}
-          
           # Get environment name via API
           ENV_NAME=$(gh api \
-            "repos/${{ github.repository }}/actions/jobs/$JOB_ID" \
+            "repos/${{ github.repository }}/actions/jobs/$GITHUB_RUN_ID" \
             --jq '.environment')
           
           echo $ENV_NAME
