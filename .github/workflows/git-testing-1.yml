@@ -161,7 +161,8 @@ jobs:
         shell: bash
         run: |
           jq --version
-          gh api repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/approvals
+          gh api repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/approvals | \
+          jq -r --arg env "test-environment-1" 'first(.[] | select(any(.environments[]; .name == $env)) | .comment'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -174,6 +175,7 @@ jobs:
       - name: Get environment name
         shell: bash
         run: |
-          gh api repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/approvals
+          gh api repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/approvals | \
+          jq -r --arg env "test-environment-1" 'first(.[] | select(any(.environments[]; .name == $env)) | .comment'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
