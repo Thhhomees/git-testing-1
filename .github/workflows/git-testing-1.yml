@@ -22,7 +22,7 @@ on:
         required: true
         type: boolean
 
-permission: read-all
+permissions: read-all
 
 jobs:
   linux-test:
