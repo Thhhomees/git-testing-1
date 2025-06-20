@@ -22,6 +22,8 @@ on:
         required: true
         type: boolean
 
+permission: read-all
+
 jobs:
   linux-test:
     # The type of runner that the job will run on
