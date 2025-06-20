@@ -26,7 +26,6 @@ permissions: read-all
 
 jobs:
   linux-test:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     steps:
@@ -90,27 +89,8 @@ jobs:
           echo "Parameter 2: ${{ github.event.inputs.parameter2 }}"
 
 
-  new-test:
-    runs-on: ubuntu-latest
-    environment: test-environment
-    steps:
-      - name: Get environment name
-        shell: bash
-        run: |
-          # Get environment name via API
-          ENV_NAME=$(gh api \
-            "repos/${{ github.repository }}/actions/jobs/$GITHUB_RUN_ID" \
-            --jq '.environment')
-          
-          echo $ENV_NAME
-          echo "env_name=$ENV_NAME" >> $GITHUB_ENV
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-
   windows-test:
     needs: linux-test
-    # condition: 
     runs-on: windows-latest
 
     steps:
@@ -175,3 +155,28 @@ jobs:
         run: |
           Write-Host "Secret: ${{ secrets.GH1_SECRET }}"
           Write-Host "Variable: ${{ vars.GH1_VARIABLE }}"
+
+
+  new-test-1:
+    runs-on: ubuntu-latest
+    environment: test-environment-1
+    steps:
+      - name: Get environment name
+        shell: bash
+        run: |
+          gh api repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/approvals
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+  new-test-2:
+    runs-on: ubuntu-latest
+    needs: new-test-1
+    environment: test-environment-2
+    steps:
+      - name: Get environment name
+        shell: bash
+        run: |
+          gh api repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/approvals
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
