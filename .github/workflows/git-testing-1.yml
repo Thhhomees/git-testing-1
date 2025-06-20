@@ -1,10 +1,6 @@
 name: git-testing-1
 
-run-name: ${{ github.run_id }}.${{ github.run_attempt}}–${{ github.sha }}-${{ github.ref_name }}
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
   pull_request:
@@ -164,6 +160,7 @@ jobs:
       - name: Get environment name
         shell: bash
         run: |
+          jq --version
           gh api repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/approvals
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
