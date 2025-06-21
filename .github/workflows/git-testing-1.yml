@@ -179,7 +179,7 @@ jobs:
 
           # Fetch both values in one shot, tab-separated
           read -r approver_login approver_comment < <(
-            gh api repos/$GITHUB_REPOSITORY/actions/runs/15783941267/approvals \
+            gh api repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/approvals \
               --jq '
                 .[]
                 | select(any(.environments[]; .name == "test-environment-1"))
@@ -203,10 +203,26 @@ jobs:
     needs: new-test-1
     environment: test-environment-2
     steps:
-      - name: Get environment name
-        shell: bash
-        run: |
-          gh api repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/approvals | \
-          jq -r --arg env "test-environment-1" 'first(.[] | select(any(.environments[]; .name == $env)) | .comment'
+      - name: Fetch approvals and set env vars
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Fetch both values in one shot, tab-separated
+          read -r approver_login approver_comment < <(
+            gh api repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/approvals \
+              --jq '
+                .[]
+                | select(any(.environments[]; .name == "test-environment-2"))
+                | [.user.login, .comment] | @tsv
+              '
+          )
+
+          # Export to GitHub Actions
+          echo "APPROVER_LOGIN=$approver_login"  >> "$GITHUB_ENV"
+          echo "APPROVER_COMMENT=$approver_comment" >> "$GITHUB_ENV"
+
+
+      - name: Use the variables
+        run: |
+          echo "Login saved: $APPROVER_LOGIN"
+          echo "Comment saved: $APPROVER_COMMENT"
