@@ -187,9 +187,6 @@ jobs:
               '
           )
 
-          # Debug to confirm
-          echo "DEBUG login='$approver_login' comment='$approver_comment'"
-
           # Export to GitHub Actions
           echo "APPROVER_LOGIN=$approver_login"  >> "$GITHUB_ENV"
           echo "APPROVER_COMMENT=$approver_comment" >> "$GITHUB_ENV"
