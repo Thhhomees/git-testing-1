@@ -167,7 +167,16 @@ jobs:
               | select(any(.environments[]; .name == "test-environment-1"))
               | .user.login, .comment
             '
-        
+
+
+          gh api repos/$GITHUB_REPOSITORY/actions/runs/15783941267/approvals \
+            --jq '
+              .[] 
+              | select(any(.environments[]; .name == "test-environment-2"))
+              | .user.login, .comment
+            '
+
+
           IFS=$'\n' read -r approver_login approver_comment < <(
             gh api repos/$GITHUB_REPOSITORY/actions/runs/15783941267/approvals \
               --jq '
