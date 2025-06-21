@@ -161,7 +161,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          read -r login comment < <(
+          read -r approver_login approver_comment < <(
             gh api repos/$GITHUB_REPOSITORY/actions/runs/15783941267/approvals \
               --jq '
                 .[]
@@ -169,8 +169,8 @@ jobs:
                 | .user.login, .comment
               '
           )
-          echo "APPROVER_LOGIN=$login" >> $GITHUB_ENV
-          echo "APPROVER_COMMENT=$comment" >> $GITHUB_ENV
+          echo "APPROVER_LOGIN=$approver_login" >> $GITHUB_ENV
+          echo "APPROVER_COMMENT=$approver_comment" >> $GITHUB_ENV
 
       - name: Use the variables
         run: |
