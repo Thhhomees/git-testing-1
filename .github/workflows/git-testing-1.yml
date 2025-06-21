@@ -177,14 +177,22 @@ jobs:
             '
 
 
-          IFS=$'\n' read -r approver_login approver_comment < <(
-            gh api repos/$GITHUB_REPOSITORY/actions/runs/15783941267/approvals \
-              --jq '
-                .[]
-                | select(any(.environments[]; .name == "test-environment-1"))
-                | .user.login, .comment
-              '
+          # Fetch approval data (2 lines: login, comment)
+          OUTPUT=$(gh api repos/$GITHUB_REPOSITORY/actions/runs/15783941267/approvals \
+            --jq '
+              .[]
+              | select(any(.environments[]; .name == "test-environment-1"))
+              | .user.login, .comment
+            '
           )
+
+          # Split the output into two variables
+          IFS=$'\n' read -r approver_login approver_comment <<< "$OUTPUT"
+
+          # Debug - ensure both captured correctly
+          echo "DEBUG: login='$approver_login' comment='$approver_comment'"
+
+          # Export to GitHub Actions environment
           echo "APPROVER_LOGIN=$approver_login" >> $GITHUB_ENV
           echo "APPROVER_COMMENT=$approver_comment" >> $GITHUB_ENV
 
