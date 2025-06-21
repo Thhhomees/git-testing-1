@@ -161,8 +161,12 @@ jobs:
         shell: bash
         run: |
           jq --version
-          gh api repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/approvals | \
-          jq -r --arg env "test-environment-1" 'first(.[] | select(any(.environments[]; .name == $env)) | .comment'
+          gh api repos/$GITHUB_REPOSITORY/actions/runs/15783941267/approvals \
+            --jq '
+              .[] 
+              | select(any(.environments[]; .name == "test-environment-1"))
+              | .user.login, .comment
+            '
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
