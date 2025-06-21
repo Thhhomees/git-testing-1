@@ -177,16 +177,21 @@ jobs:
             '
 
 
-          {
-            IFS= read -r approver_login
-            IFS= read -r approver_comment
-          } < <(
-            gh api repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/approvals \
-              --jq 'first(.[] | select(any(.environments[]; .name == "test-environment-1"))) | .user.login, .comment'
+          OUTPUT=$(gh api repos/$GITHUB_REPOSITORY/actions/runs/15783941267/approvals \
+            --jq '
+              .[]
+              | select(any(.environments[]; .name == "test-environment-1"))
+              | .user.login, .comment
+            '
           )
-          
-          echo "APPROVER_LOGIN=$approver_login" >> $GITHUB_ENV
-          echo "APPROVER_COMMENT=$approver_comment" >> $GITHUB_ENV
+
+          # Use IFS=$'\n' to split only on newlines and avoid trimming
+          IFS=$'\n' read -r approver_login approver_comment <<< "$OUTPUT"
+
+          echo "DEBUG login='${approver_login}' comment='${approver_comment}'"
+
+          echo "APPROVER_LOGIN=$approver_login" >> "$GITHUB_ENV"
+          echo "APPROVER_COMMENT=$approver_comment" >> "$GITHUB_ENV"
 
       - name: Use the variables
         run: |
