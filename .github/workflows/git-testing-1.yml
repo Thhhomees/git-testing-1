@@ -168,7 +168,7 @@ jobs:
               | .user.login, .comment
             '
         
-          read -r approver_login approver_comment < <(
+          IFS=$'\n' read -r approver_login approver_comment < <(
             gh api repos/$GITHUB_REPOSITORY/actions/runs/15783941267/approvals \
               --jq '
                 .[]
