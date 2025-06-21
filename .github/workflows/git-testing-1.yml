@@ -177,29 +177,23 @@ jobs:
             '
 
 
-          # Perform a single API call and capture the full JSON response
-          FULL_JSON=$(gh api repos/$GITHUB_REPOSITORY/actions/runs/15783941267/approvals)
+          # Fetch both values in one shot, tab-separated
+          read -r approver_login approver_comment < <(
+            gh api repos/$GITHUB_REPOSITORY/actions/runs/15783941267/approvals \
+              --jq '
+                .[]
+                | select(any(.environments[]; .name == "test-environment-1"))
+                | [.user.login, .comment] | @tsv
+              '
+          )
 
-          # Extract login for test-environment-1
-          approver_login=$(jq -r '
-            .[]
-            | select(any(.environments[]; .name == "test-environment-1"))
-            | .user.login
-          ' <<< "$FULL_JSON")
-
-          # Extract comment for test-environment-1
-          approver_comment=$(jq -r '
-            .[]
-            | select(any(.environments[]; .name == "test-environment-1"))
-            | .comment
-          ' <<< "$FULL_JSON")
-
-          # Debug log
+          # Debug to confirm
           echo "DEBUG login='$approver_login' comment='$approver_comment'"
 
-          # Export to GitHub Actions environment
-          echo "APPROVER_LOGIN=$approver_login" >> "$GITHUB_ENV"
+          # Export to GitHub Actions
+          echo "APPROVER_LOGIN=$approver_login"  >> "$GITHUB_ENV"
           echo "APPROVER_COMMENT=$approver_comment" >> "$GITHUB_ENV"
+
 
       - name: Use the variables
         run: |
