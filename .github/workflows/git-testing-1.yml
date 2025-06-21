@@ -161,7 +161,12 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh api repos/$GITHUB_REPOSITORY/actions/runs/15783941267/approvals
+          gh api repos/$GITHUB_REPOSITORY/actions/runs/15783941267/approvals \
+            --jq '
+              .[] 
+              | select(any(.environments[]; .name == "test-environment-1"))
+              | .user.login, .comment
+            '
         
           read -r approver_login approver_comment < <(
             gh api repos/$GITHUB_REPOSITORY/actions/runs/15783941267/approvals \
